@@ -1,0 +1,316 @@
+/* ==========================================================
+   Nandut's Birthday Party
+   background color and stars are defined in bg.css
+   ========================================================== */
+:root {
+  --nav-h: 56px;
+
+  --ink: #1f1f1f;
+  --btn-bg: rgba(242, 241, 235, .92);
+  --btn-ink: #aaa89f;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;           /* only <main> scrolls */
+  background: radial-gradient(ellipse at bottom, #ffe6eb 0%, #ff8fab 100%);
+  color: var(--ink);
+  font-family: "Gaegu", "Patrick Hand", "Comic Sans MS", cursive;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- Page 1: Landing (gift button) ---------- */
+.slide.slide--landing { padding-top: 0; font-family: "Arial", sans-serif; }
+
+.reward-btn {
+  width: 480px;
+  height: 120px;
+  background-color: #101218;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 0 30px;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+.IconContainer {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.box-top {
+  width: 70%;
+  position: absolute;
+  z-index: 5;
+  top: 25px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: bottom;
+}
+.box-body { width: 68%; position: absolute; z-index: 4; top: 45px; fill: none; }
+.coin {
+  width: 50%;
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+}
+.coin .st0 { fill: #ffffff; }
+.text {
+  width: 280px;
+  font-size: 28px;
+  color: #fb6f92;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  z-index: 10;
+}
+
+/* Hover animation. The .is-opening class triggers the same animation when tapped on mobile */
+.reward-btn:hover:not(:disabled), .reward-btn.is-opening {
+  background-color: #202531;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+.reward-btn:hover:not(:disabled) .IconContainer .box-top,
+.reward-btn.is-opening .IconContainer .box-top { transform: translateY(-12px) rotate(-180deg); }
+.reward-btn:hover:not(:disabled) .coin,
+.reward-btn.is-opening .coin { top: 0px; opacity: 1; z-index: 3; }
+.reward-btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.reward-btn:disabled { cursor: progress; }
+.reward-btn:disabled .IconContainer { animation: wobble 1.2s ease-in-out infinite; }
+@keyframes wobble { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+
+@media only screen and (max-width: 600px) {
+  .reward-btn { width: 90%; height: 100px; padding: 0 15px; }
+  .IconContainer { transform: scale(0.85); margin-right: 5px; }
+  .text { width: auto; font-size: 20px; flex: 1; line-height: 1.2; }
+}
+
+/* ---------- Lock: menu & next button only appear after the gift is opened ---------- */
+body .nav, body .next { transition: opacity .6s ease, visibility .6s, transform .2s, background .2s; }
+body.is-locked .nav, body.at-landing .nav,
+body.is-locked .next, body.at-landing .next { opacity: 0; visibility: hidden; pointer-events: none; }
+body.is-locked #pages { overflow: hidden; }
+body.is-waiting, body.is-waiting * { cursor: wait !important; }
+
+/* ---------- Top Navigation ---------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  height: var(--nav-h);
+  padding-top: env(safe-area-inset-top, 0px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(255, 255, 255, .55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.nav nav { display: flex; gap: clamp(14px, 2.6vw, 34px); padding: 0 clamp(14px, 2.4vw, 28px); overflow-x: auto; scrollbar-width: none; }
+.nav nav::-webkit-scrollbar { display: none; }
+.nav a {
+  color: #4b4b57;
+  text-decoration: none;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 300;
+  white-space: nowrap;
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav a:hover { color: #000; }
+.nav a.is-active { color: #000; font-weight: 400; border-bottom-color: #ec7b9b; }
+.nav a:focus-visible, .next:focus-visible, .sound:focus-visible { outline: 2px solid #ec7b9b; outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Scroller & slide ---------- */
+#pages {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  outline: none;
+  position: relative;
+  z-index: 1;
+  touch-action: pan-y;
+}
+#pages::-webkit-scrollbar { display: none; }
+
+.slide {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  padding-top: var(--nav-h);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* Stage 16:9, size adjusts to the screen (contain) */
+.stage {
+  position: relative;
+  flex: none;
+  container-type: inline-size;
+  aspect-ratio: 16 / 9;
+  width: min(100vw, calc((100vh - var(--nav-h)) * 16 / 9));
+  width: min(100vw, calc((100dvh - var(--nav-h)) * 16 / 9));
+}
+.stage > img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+
+/* ---------- Layar ponsel (slide video) ---------- */
+.screen {
+  position: absolute;
+  left: 38.50%;
+  top: 6.77%;
+  width: 22.84%;
+  height: 83.46%;
+  border-radius: 2.1cqw;
+  overflow: hidden;
+  background: #111;
+}
+.screen video, .story-ui { position: absolute; inset: 0; width: 100%; height: 100%; }
+.screen video { object-fit: cover; }
+.story-ui { pointer-events: none; }
+.story-ui .bar { transition: width .25s linear; }
+
+.sound {
+  position: absolute;
+  top: 5.4%;
+  right: 5%;
+  width: 10%;
+  aspect-ratio: 1;
+  padding: 2.2%;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(0, 0, 0, .3);
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.sound:hover { background: rgba(0, 0, 0, .45); }
+.sound:active { transform: scale(.92); }
+.sound svg { width: 100%; height: 100%; }
+.sound[aria-pressed="true"]  .mute  { display: none; }
+.sound[aria-pressed="false"] .waves { display: none; }
+
+/* If video.mp4 is not found, the default static Canva frame will still be displayed */
+.slide--video.no-video .screen { display: none; }
+
+/* ---------- Gallery photo & Closing: two elements side by side ---------- */
+.duo {
+  --avail: calc(100vh - var(--nav-h) - 72px);
+  --avail: calc(100dvh - var(--nav-h) - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 48px);
+  /* --ratio = total lebar asli / tinggi asli tertinggi, supaya muat tinggi layar */
+  width: min(92vw, calc(var(--avail) * var(--ratio)));
+}
+.duo img { display: block; min-width: 0; height: auto; user-select: none; -webkit-user-drag: none; }
+
+.slide--photos { flex-direction: column; gap: 12px; }
+.slide--photos p { margin: 0 auto; max-width: 60ch; padding: 0 20px; text-align: center; font-size: clamp(17px, 1.8vw, 22px); }
+.duo--photos { --ratio: 1.45; --avail: calc(100dvh - var(--nav-h) - 72px - 7em); }
+.duo--photos .duo__a { flex: 315 1 0; }
+.duo--photos .duo__b { flex: 524 1 0; }
+
+.duo--closing { --ratio: 3.15; gap: 0; }
+.duo--closing .duo__a { flex: 701 1 0; }
+.duo--closing .duo__b { flex: 1374 1 0; }
+
+/* ---------- Next Button ---------- */
+.next {
+  position: fixed;
+  z-index: 20;
+  right: max(20px, 3.4vw);
+  bottom: max(22px, 5vh);
+  bottom: max(22px, calc(5vh + env(safe-area-inset-bottom, 0px)));
+  width: 52px;
+  height: 52px;
+  padding: 12px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--btn-ink);
+  background: var(--btn-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+}
+.next:hover { background: #fff; transform: translateY(2px); }
+.next svg { width: 100%; height: 100%; display: block; transition: transform .3s; }
+.next.is-last svg { transform: rotate(-90deg); }
+.next.is-last:hover { transform: translateY(-2px); }
+
+/* ---------- Confetti ---------- */
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 30; pointer-events: none; }
+
+/* ---------- Ponsel potret ---------- */
+.rotate-hint { display: none; }
+
+@media (orientation: portrait) {
+  /* Cover & video: the central content is important, so the stage is made wider than the screen and the edges are cropped */
+  .slide--cover .stage {
+    width: min(285vw, calc((100dvh - var(--nav-h)) * 16 / 9 * 1.05));
+  }
+  .slide--video .stage {
+    width: calc((100dvh - var(--nav-h)) * 16 / 9 * .94);
+  }
+  /* Gallery photo & closing: arranged top-to-bottom */
+  .duo { flex-direction: column; width: auto; gap: clamp(8px, 2dvh, 20px); }
+  .duo img { flex: none; }
+
+  .duo--photos .duo__b { order: -1; width: min(86vw, calc(var(--avail) / 2.4)); }
+  .duo--photos .duo__a { width: min(52vw, calc(var(--avail) / 2.4 * .6)); }
+
+  .duo--closing { gap: 0; }
+  .duo--closing .duo__a { width: min(70vw, calc(var(--avail) / 1.55)); }
+  .duo--closing .duo__b { width: min(100vw, calc(var(--avail) / 1.55 * 1.45)); }
+
+  /* Petunjuk di bawah layar (slide video) */
+  .rotate-hint {
+    display: block;
+    position: absolute;
+    left: 0; right: 0;
+    bottom: max(22px, env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    padding: 0 84px 0 20px;
+    text-align: center;
+    font-size: 17px;
+    color: #7a2a43;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pages { scroll-behavior: auto; }
+  .story-ui .bar, .next, .next svg, .sound { transition: none; }
+}

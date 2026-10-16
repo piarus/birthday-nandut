@@ -1,38 +1,156 @@
-
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nandut's Birthday Party</title>
-    <style>
-        html,
-        body {
-            margin: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        iframe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: calc(100% + 60px);
-            /* 60px lebih tinggi dari layar */
-            border: 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nandut's Birthday Party</title>
+  <meta name="theme-color" content="#f0a3b8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎂%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="bg.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body class="is-locked at-landing">
 
-<body>
-    <iframe
-        src="https://lidyabbubles.my.canva.site/terimakasih-sudah-hadir-25-tahun-di-dunia-semoga-nandut-semakin-didepan/"
-        allowfullscreen>
-    </iframe>
+  <!-- Latar bintang (dari bg.css), dipakai semua halaman -->
+  <div class="container" aria-hidden="true">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+  </div>
 
-    <div class="cover"></div>
+  <header class="nav">
+    <nav aria-label="Navigasi halaman">
+      <a href="#cover">Cover</a>
+      <a href="#photos">Gallery photo</a>
+      <a href="#video">Gallery video</a>
+      <a href="#closing">Closing</a>
+    </nav>
+  </header>
+
+  <main id="pages" tabindex="-1">
+
+    <!-- 1. LANDING -->
+    <section class="slide slide--landing" id="landing" aria-label="Buka hadiah">
+      <button class="reward-btn" id="gift" type="button" aria-label="Buka hadiah" disabled aria-busy="true">
+      <span class="IconContainer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 20" class="box-top">
+      <path stroke-linecap="round" stroke-width="4" stroke="#fb6f92" d="M2 18L58 18"></path>
+      <circle stroke-width="5" stroke="#fb6f92" fill="#101218" r="7" cy="9.5" cx="20.5"></circle>
+      <circle stroke-width="5" stroke="#fb6f92" fill="#101218" r="7" cy="9.5" cx="38.5"></circle>
+      </svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 58 44" class="box-body">
+      <mask fill="white" id="path-1-inside-1_81_19">
+      <rect rx="3" height="44" width="58"></rect>
+      </mask>
+      <rect mask="url(#path-1-inside-1_81_19)" stroke-width="8" stroke="#fb6f92" fill="#101218" rx="3"
+      height="44" width="58"></rect>
+      <line stroke-width="6" stroke="#fb6f92" y2="29" x2="58" y1="29" x1="-3.61529e-09"></line>
+      <path stroke-linecap="round" stroke-width="5" stroke="#fb6f92" d="M45.0005 20L36 3"></path>
+      <path stroke-linecap="round" stroke-width="5" stroke="#fb6f92" d="M21 3L13.0002 19.9992"></path>
+      </svg>
+      
+      <svg class="coin" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+      <g>
+      <path class="st0" d="M461.81,197.514c-2.999-11.335-14.624-18.093-25.959-15.094c-1.859,0.553-13.47,3.649-26.041,14.341 c-6.234,5.349-12.626,12.751-17.361,22.454c-4.741,9.69-7.678,21.577-7.657,35.033c0.013,16.345,4.133,34.895,13.449,56.257 c6.275,14.403,9.137,29.697,9.137,44.846c0.069,25.627-8.432,50.756-21.114,68.283c-6.297,8.777-13.546,15.606-20.824,20.022 c-2.986,1.81-5.944,3.131-8.888,4.181l0.995-5.854c-0.055-17.03-4.05-34.84-13.021-50.528 c-28.363-49.643-66.223-134.741-66.223-134.741l-1.534-4.879c29.47-7.796,58.58-23.408,73.155-54.985 c38.931-84.344-41.086-142.73-41.086-142.73s-25.952-56.222-38.924-54.06c-12.979,2.164-41.094,38.931-41.094,38.931h-23.781 H181.25c0,0-28.107-36.767-41.086-38.931c-12.972-2.163-38.924,54.06-38.924,54.06s-80.011,58.386-41.08,142.73 c13.822,29.953,40.735,45.572,68.628,53.748l-2.945,9.662c0,0-31.916,81.552-60.279,131.195C37.201,441.092,58.473,512,97.48,512 c29.47,0,79.134,0,101.692,0c7.284,0,11.763,0,11.763,0c22.544,0,72.222,0,101.691,0c12.648,0,23.374-7.547,31.197-19.324 c15.834-0.013,30.81-4.872,43.706-12.758c19.462-11.915,34.708-30.32,45.434-51.896c10.692-21.618,16.863-46.636,16.877-72.672 c0-20.484-3.877-41.619-12.675-61.813c-7.568-17.34-9.918-30.216-9.911-39.29c0.028-7.526,1.507-12.544,3.359-16.414 c1.424-2.889,3.124-5.17,4.99-7.091c2.764-2.868,5.964-4.879,8.349-6.054c1.175-0.595,2.135-0.968,2.667-1.162l0.457-0.152 l-0.014-0.028C458.175,220.189,464.782,208.724,461.81,197.514z M273.591,24.506l9.579,23.954l-23.948-4.79L273.591,24.506z M134.676,24.506l14.368,19.165l-23.947,4.79L134.676,24.506z M83.865,198.882l-0.677-6.344l68.096-7.264l0.684,6.352 L83.865,198.882z M154.186,170.36l-69.782-5.502l0.498-6.358l69.782,5.488L154.186,170.36z M147.185,133.094 c-9.4,0-17.043-7.63-17.043-17.036c0-9.399,7.643-17.029,17.043-17.029c9.406,0,17.029,7.63,17.029,17.029 C164.215,125.464,156.592,133.094,147.185,133.094z M243.583,208.827c-5.446,1.299-10.284,1.914-14.618,1.914 c-5.736,0.007-10.622-1.098-14.658-3.124c-4.015-2.024-7.091-4.976-9.247-8.238c-0.352-0.553-0.552-1.126-0.87-1.679 c-2.212,3.932-5.515,7.547-10.229,9.917c-4.029,2.026-8.915,3.124-14.652,3.124c-4.34-0.006-9.164-0.615-14.617-1.907 c-2.634-0.636-4.25-3.283-3.628-5.916c0.622-2.626,3.276-4.257,5.902-3.628c4.852,1.168,8.944,1.652,12.343,1.652 c4.52,0,7.789-0.844,10.228-2.074c2.447-1.244,4.147-2.875,5.502-4.893c2.681-3.988,3.635-9.8,3.608-14.921 c0-2.909-0.276-5.473-0.56-7.36l-9.765-8.854c-2.004-1.811-2.696-4.665-1.714-7.187c0.967-2.53,3.386-4.188,6.082-4.188h22.889 c2.64,0,5.018,1.59,6.027,4.029c1.016,2.439,0.456,5.26-1.417,7.125l-10.153,10.152c-0.221,1.756-0.421,3.871-0.421,6.269 c0,3.828,0.511,8.085,1.921,11.624c1.444,3.573,3.56,6.352,7.194,8.204c2.44,1.23,5.709,2.074,10.236,2.074 c3.408,0,7.499-0.484,12.337-1.645c2.626-0.629,5.28,0.995,5.902,3.621C247.84,205.551,246.215,208.191,243.583,208.827z M244.053,116.058c0-9.399,7.63-17.029,17.036-17.029c9.406,0,17.036,7.63,17.036,17.029c0,9.406-7.63,17.036-17.036,17.036 C251.683,133.094,244.053,125.464,244.053,116.058z M253.597,163.987l69.768-5.488l0.497,6.358l-69.768,5.502L253.597,163.987z M256.99,185.274l68.102,7.264l-0.684,6.344l-68.096-7.257L256.99,185.274z"></path>
+      </g>
+      </svg>
+      </span>
+      <span class="text" id="gift-text">Memuat hadiah... 0%</span>
+      </button>
+    </section>
+
+    <!-- 2. COVER -->
+    <section class="slide slide--cover" id="cover">
+      <div class="stage">
+        <img src="assets/Cover.svg" alt="Nandut's Birthday Party, 17 Oktober. Terima kasih sudah hadir, 25 tahun di dunia, semoga Nandut semakin di depan." draggable="false">
+      </div>
+    </section>
+
+    <!-- 3. GALLERY PHOTO -->
+    <section class="slide slide--photos" id="photos">
+      <div>
+        <p>Bertambahnya usiamu adalah hadiah bagi dunia, tapi hadirmu di hidupku adalah anugerah terindah yang pernah kumiliki. Selamat ulang tahun serta mulia untuk seseorang yang membuat hatiku menemukan rumah.</p>
+      </div>
+      <div class="duo duo--photos">
+        <img class="duo__a" src="assets/gallery-photo-left.png" width="315" height="599" alt="Dua foto polaroid Nandut." draggable="false">
+        <img class="duo__b" src="assets/gallery-photo-right.png" width="524" height="599" alt="Foto polaroid berdua dengan balon ulang tahun." draggable="false">
+      </div>
+    </section>
+
+    <!-- 4. GALLERY VIDEO -->
+    <section class="slide slide--video" id="video">
+      <div class="stage">
+        <img src="assets/Gallery_Video.svg" alt="" draggable="false">
+
+        <!-- Layar ponsel: video asli ditumpuk di atas frame diam dari Canva -->
+        <div class="screen" id="screen">
+          <video id="clip" src="assets/video.mp4" muted loop playsinline preload="metadata"
+                 aria-label="Video kenangan di pantai"></video>
+
+          <svg class="story-ui" viewBox="0 0 312 641" aria-hidden="true">
+            <defs>
+              <linearGradient id="shadeTop" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="shadeBottom" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <rect width="312" height="120" fill="url(#shadeTop)"/>
+            <rect y="521" width="312" height="120" fill="url(#shadeBottom)"/>
+
+            <!-- progress bar story -->
+            <g fill="#fff">
+              <rect x="17"  y="21" width="89" height="3" rx="1.5" opacity=".4"/>
+              <rect x="112" y="21" width="89" height="3" rx="1.5" opacity=".4"/>
+              <rect x="208" y="21" width="89" height="3" rx="1.5" opacity=".4"/>
+              <rect class="bar" x="17"  y="21" width="0" height="3" rx="1.5"/>
+              <rect class="bar" x="112" y="21" width="0" height="3" rx="1.5"/>
+              <rect class="bar" x="208" y="21" width="0" height="3" rx="1.5"/>
+            </g>
+
+            <circle cx="29" cy="51" r="14" fill="#4aa8ff"/>
+            <rect x="15" y="592" width="210" height="24" rx="12" fill="none" stroke="#fff" stroke-width="1.5"/>
+            <g fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+              <path transform="translate(242 592)" d="M12 20.5s-8-4.9-8-11A4.5 4.5 0 0 1 12 6.8 4.5 4.5 0 0 1 20 9.5c0 6.1-8 11-8 11z"/>
+              <path transform="translate(275 592)" d="M21 3 3 10.5l7 2.5 2.5 7z"/>
+            </g>
+          </svg>
+
+          <button class="sound" id="sound" type="button" aria-label="Nyalakan suara" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/>
+              <g class="waves" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/>
+              </g>
+              <path class="mute" d="M16 9.5l5 5m0-5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <p class="rotate-hint">Ketuk ikon speaker untuk menyalakan suara</p>
+    </section>
+
+    <!-- 5. CLOSING -->
+    <section class="slide slide--closing" id="closing">
+      <div class="duo duo--closing">
+        <img class="duo__a" src="assets/closing-left.png" width="701" height="576" alt="Kucing memakai topi ulang tahun." draggable="false">
+        <img class="duo__b" src="assets/closing-right.png" width="1374" height="659" alt="Make a wish. To many more years of joy!" draggable="false">
+      </div>
+    </section>
+
+  </main>
+
+  <button class="next" id="next" type="button" aria-label="Halaman berikutnya">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
