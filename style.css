@@ -238,7 +238,8 @@ body.is-waiting, body.is-waiting * { cursor: wait !important; }
 }
 .duo img { display: block; min-width: 0; height: auto; user-select: none; -webkit-user-drag: none; }
 
-.slide--photos { flex-direction: column; gap: 12px; }
+.slide--photos { flex-direction: column; justify-content: flex-start; gap: 12px; overflow-y: auto; padding-bottom: 72px; }
+.slide--photos > * { flex-shrink: 0; }
 .slide--photos p { margin: 0 auto; max-width: 60ch; padding: 0 20px; text-align: center; font-size: clamp(17px, 1.8vw, 22px); }
 .duo--photos { --ratio: 1.45; --avail: calc(100dvh - var(--nav-h) - 72px - 7em); }
 .duo--photos .duo__a { flex: 315 1 0; }
